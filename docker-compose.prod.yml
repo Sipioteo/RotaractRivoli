@@ -1,0 +1,30 @@
+services:
+  frontend:
+    image: ghcr.io/sipioteo/rotaractrivoli-frontend:latest
+    container_name: rotaract-frontend
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:1337}
+    restart: unless-stopped
+
+  backend:
+    image: ghcr.io/sipioteo/rotaractrivoli-backend:latest
+    container_name: rotaract-backend
+    ports:
+      - '1337:1337'
+    volumes:
+      - ./backend-data/uploads:/opt/app/public/uploads
+      - ./backend-data/data:/opt/app/.tmp
+    environment:
+      - NODE_ENV=production
+      - DATABASE_CLIENT=${DATABASE_CLIENT:-sqlite}
+      - DATABASE_FILENAME=${DATABASE_FILENAME:-.tmp/data.db}
+      - JWT_SECRET=${JWT_SECRET}
+      - API_TOKEN_SALT=${API_TOKEN_SALT}
+      - APP_KEYS=${APP_KEYS}
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
+      - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
+      - STRIPE_SK=${STRIPE_SK}
+      - STRIPE_PK=${STRIPE_PK}
+    restart: unless-stopped

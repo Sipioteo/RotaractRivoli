@@ -42,6 +42,20 @@ docker compose up -d --build
 
 The frontend will be available at `http://localhost:5173` and the Strapi admin panel at `http://localhost:1337/admin`.
 
+## Production Deployment (GHCR)
+
+To deploy using pre-built images from GitHub Container Registry:
+
+1. Copy `.env.prod.example` to `.env.prod` and fill in your production secrets.
+2. Run:
+
+```bash
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
+```
+
+This will pull images directly from `ghcr.io/sipioteo/rotaractrivoli-*` without requiring a local build.
+
+
 ## Indexing Policy
 
 This is a test website. It has been configured with `noindex` and `nofollow` meta tags, and a `robots.txt` that disallows all crawlers to prevent it from appearing in search engine results.
