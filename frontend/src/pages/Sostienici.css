@@ -1,0 +1,93 @@
+.donation-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+.donation-tabs {
+    display: flex;
+    background-color: var(--off-white);
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.donation-tab {
+    flex: 1;
+    padding: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+}
+
+.donation-tab.active {
+    background-color: var(--white);
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.donation-content {
+    padding: var(--spacing-lg);
+}
+
+.detail-list {
+    list-style: none;
+    margin-bottom: var(--spacing-md);
+}
+
+.detail-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.detail-list li:last-child {
+    border-bottom: none;
+}
+
+.detail-list .label {
+    color: var(--text-secondary);
+}
+
+.detail-list .value {
+    font-weight: 600;
+    text-align: right;
+    font-family: monospace;
+    font-size: 1.1em;
+}
+
+.note-box {
+    background-color: var(--off-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Transparency */
+.transparency-card {
+    padding: var(--spacing-md);
+}
+
+.icon-lg {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+    .detail-list li {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .detail-list .value {
+        text-align: left;
+    }
+}

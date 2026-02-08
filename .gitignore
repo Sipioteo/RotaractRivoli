@@ -1,0 +1,30 @@
+# Common
+.DS_Store
+.idea
+.vscode
+node_modules
+*.log
+.env
+.env.local
+
+# Frontend
+frontend/dist
+frontend/dist-ssr
+frontend/.vite
+frontend/node_modules
+
+# Backend
+backend/.strapi
+backend/dist
+backend/build
+backend/.tmp
+backend/node_modules
+backend/public/uploads/*
+!backend/public/uploads/.gitkeep
+backend/.strapi-updater.json
+backend/.strapi-cloud.json
+backend/*.sqlite
+backend/*.sqlite3
+
+# Docker
+.docker

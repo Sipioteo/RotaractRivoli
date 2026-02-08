@@ -1,0 +1,26 @@
+{
+    "kind": "collectionType",
+    "collectionName": "history_items",
+    "info": {
+        "singularName": "history-item",
+        "pluralName": "history-items",
+        "displayName": "History Item",
+        "description": "Club history timeline"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "year": {
+            "type": "string",
+            "required": true
+        },
+        "event": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        }
+    }
+}

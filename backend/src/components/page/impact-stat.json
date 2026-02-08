@@ -1,0 +1,16 @@
+{
+    "collectionName": "components_page_impact_stats",
+    "info": {
+        "displayName": "Impact Stat",
+        "icon": "chart-pie"
+    },
+    "options": {},
+    "attributes": {
+        "value": {
+            "type": "string"
+        },
+        "label": {
+            "type": "string"
+        }
+    }
+}
