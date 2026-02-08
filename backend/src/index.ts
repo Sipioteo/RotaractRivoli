@@ -92,14 +92,14 @@ export default {
             title: "Passaggio di Consegne 2025/2026",
             date: "2025-07-01",
             excerpt: "Celebrato il nuovo direttivo e i progetti per l'anno a venire.",
-            tags: ["Distretto", "Club"],
+            tags: "Distretto, Club",
             publishedAt
           },
           {
             title: "Adesione all’Agenda della Disabilità",
             date: "2025-12-03",
             excerpt: "Il club si impegna formalmente sui temi dell'inclusione e accessibilità.",
-            tags: ["Inclusione", "Partner"],
+            tags: "Inclusione, Partner",
             publishedAt
           }
         ];
