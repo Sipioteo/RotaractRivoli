@@ -34,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY shadow-sm }}/${{ env.BACKEND_IMAGE }}
+          images: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}
 
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v4
