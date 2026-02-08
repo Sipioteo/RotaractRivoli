@@ -34,4 +34,5 @@ services:
       - TRANSFER_TOKEN_SALT=transfersalt
       - STRIPE_SK=sk_test_placeholder
       - STRIPE_PK=pk_test_placeholder
+    command: npm run develop
     restart: unless-stopped
