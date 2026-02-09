@@ -14,9 +14,13 @@ This project consists of a React frontend (Vite) and a Strapi backend (Node.js).
 
 | Variable | Description | Default / Example |
 | :--- | :--- | :--- |
-| `DATABASE_CLIENT` | Database client to use. | `sqlite` |
-| `DATABASE_FILENAME` | Path to the SQLite database file. | `.tmp/data.db` |
-| `JWT_SECRET` | Secret used to sign JWT tokens for authentication. | `supersecretkey` |
+| `DATABASE_CLIENT` | Database client to use. | `postgres` (previously `sqlite`) |
+| `DATABASE_HOST` | Database host (container name in docker). | `db` |
+| `DATABASE_PORT` | Database port. | `5432` |
+| `DATABASE_NAME` | Database name. | `strapi` |
+| `DATABASE_USERNAME` | Database username. | `strapi` |
+| `DATABASE_PASSWORD` | Database password. | `strapi` |
+| `JWT_SECRET` | Secret used to sign JWT tokens. | `supersecretkey` |
 | `API_TOKEN_SALT` | Salt used for API tokens. | `saltysalt` |
 | `APP_KEYS` | Comma-separated keys for session/cookie signing. | `key1,key2,key3,key4` |
 | `ADMIN_JWT_SECRET` | Secret used for Admin panel JWT tokens. | `adminsecret` |
