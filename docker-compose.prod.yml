@@ -13,6 +13,7 @@ services:
         - "traefik.http.routers.frontend.tls.certresolver=myresolver"
     environment:
       - VITE_API_URL=${VITE_API_URL:-https://admin.ww2.rotaractrivoli.org}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-ww2.rotaractrivoli.org}
     restart: unless-stopped
 
   backend:
