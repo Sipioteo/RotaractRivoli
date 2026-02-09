@@ -33,7 +33,7 @@ services:
         - "traefik.http.services.backend.loadbalancer.server.port=1337"
     environment:
       - NODE_ENV=production
-      - PUBLIC_URL=${PUBLIC_URL:-https://admin.ww2.rotaractrivoli.org}
+      - PUBLIC_URL=https://admin.ww2.rotaractrivoli.org
       - DATABASE_CLIENT=postgres
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
