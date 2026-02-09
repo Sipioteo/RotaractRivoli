@@ -13,6 +13,7 @@ RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install
 COPY . .
 
 # Build the Strapi application
+ENV NODE_ENV=production
 RUN npm run build
 
 EXPOSE 1337

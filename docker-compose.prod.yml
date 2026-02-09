@@ -2,19 +2,34 @@ services:
   frontend:
     image: ghcr.io/sipioteo/rotaractrivoli-frontend:main
     container_name: rotaract-frontend
-    ports:
-      - '5173:5173'
+    networks:
+      - traefik-public
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.frontend.rule=Host(`rotaractrivoli.org`)"
+        - "traefik.http.services.frontend.loadbalancer.server.port=5173"
+        - "traefik.http.routers.frontend.entrypoints=websecure"
+        - "traefik.http.routers.frontend.tls.certresolver=myresolver"
     environment:
-      - VITE_API_URL=${VITE_API_URL:-http://localhost:1337}
+      - VITE_API_URL=${VITE_API_URL:-https://api.rotaractrivoli.org}
     restart: unless-stopped
 
   backend:
     image: ghcr.io/sipioteo/rotaractrivoli-backend:main
     container_name: rotaract-backend
-    ports:
-      - '1337:1337'
+    networks:
+      - traefik-public
+      - internal
     volumes:
       - ./backend-data/uploads:/opt/app/public/uploads
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.backend.rule=Host(`api.rotaractrivoli.org`)"
+        - "traefik.http.routers.backend.entrypoints=websecure"
+        - "traefik.http.routers.backend.tls.certresolver=myresolver"
+        - "traefik.http.services.backend.loadbalancer.server.port=1337"
     environment:
       - NODE_ENV=production
       - DATABASE_CLIENT=postgres
@@ -42,6 +57,8 @@ services:
   db:
     image: postgres:16-alpine
     container_name: rotaract-db
+    networks:
+      - internal
     environment:
       - POSTGRES_USER=${DATABASE_USERNAME:-strapi}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
@@ -52,3 +69,10 @@ services:
 
 volumes:
   strapi-prod-data:
+
+
+networks:
+  traefik-public:
+    external: true
+  internal:
+    driver: overlay
