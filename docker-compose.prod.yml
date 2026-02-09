@@ -7,12 +7,12 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.frontend.rule=Host(`rotaractrivoli.org`)"
+        - "traefik.http.routers.frontend.rule=Host(`ww2.rotaractrivoli.org`)"
         - "traefik.http.services.frontend.loadbalancer.server.port=5173"
         - "traefik.http.routers.frontend.entrypoints=websecure"
         - "traefik.http.routers.frontend.tls.certresolver=myresolver"
     environment:
-      - VITE_API_URL=${VITE_API_URL:-https://api.rotaractrivoli.org}
+      - VITE_API_URL=${VITE_API_URL:-https://admin.ww2.rotaractrivoli.org}
     restart: unless-stopped
 
   backend:
@@ -26,12 +26,13 @@ services:
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.backend.rule=Host(`api.rotaractrivoli.org`)"
+        - "traefik.http.routers.backend.rule=Host(`admin.ww2.rotaractrivoli.org`)"
         - "traefik.http.routers.backend.entrypoints=websecure"
         - "traefik.http.routers.backend.tls.certresolver=myresolver"
         - "traefik.http.services.backend.loadbalancer.server.port=1337"
     environment:
       - NODE_ENV=production
+      - PUBLIC_URL=${PUBLIC_URL:-https://admin.ww2.rotaractrivoli.org}
       - DATABASE_CLIENT=postgres
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
