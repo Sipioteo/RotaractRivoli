@@ -1,0 +1,12 @@
+# Development Dockerfile for Next.js
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Install dependencies at container startup via entrypoint
+# This is needed because volume mounts override the build-time node_modules
+
+EXPOSE 3000
+
+# Install dependencies and run dev server
+CMD ["sh", "-c", "npm install && npm run dev"]

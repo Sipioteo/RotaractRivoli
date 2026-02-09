@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { navLinks } from '../data/content';
 import './Header.css';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const location = useLocation();
+    const pathname = usePathname();
+
+    // Pages with dark hero backgrounds need light header text
+    const darkHeroPages = ['/chi-siamo', '/attivita', '/sostienici', '/news', '/progetti'];
+    const hasDarkHero = darkHeroPages.includes(pathname);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -16,10 +23,12 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const headerClass = `header ${isScrolled ? 'scrolled' : ''} ${!isScrolled && hasDarkHero ? 'on-dark' : ''}`;
+
     return (
-        <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+        <header className={headerClass}>
             <div className="container header-container">
-                <Link to="/" className="logo">
+                <Link href="/" className="logo">
                     <span className="logo-rotary">Rotaract</span>
                     <span className="logo-club">Rivoli</span>
                 </Link>
@@ -30,15 +39,15 @@ const Header = () => {
                         {navLinks.map((link) => (
                             <li key={link.path}>
                                 <Link
-                                    to={link.path}
-                                    className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+                                    href={link.path}
+                                    className={`nav-link ${pathname === link.path ? 'active' : ''}`}
                                 >
                                     {link.label}
                                 </Link>
                             </li>
                         ))}
                     </ul>
-                    <Link to="/attivita#eventi" className="btn btn-primary btn-sm">
+                    <Link href="/attivita#eventi" className="btn btn-primary btn-sm">
                         Partecipa
                     </Link>
                 </nav>
@@ -58,7 +67,7 @@ const Header = () => {
                         {navLinks.map((link) => (
                             <li key={link.path}>
                                 <Link
-                                    to={link.path}
+                                    href={link.path}
                                     className="mobile-nav-link"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
@@ -68,7 +77,7 @@ const Header = () => {
                         ))}
                         <li>
                             <Link
-                                to="/attivita#eventi"
+                                href="/attivita#eventi"
                                 className="btn btn-primary mobile-cta"
                                 onClick={() => setIsMenuOpen(false)}
                             >

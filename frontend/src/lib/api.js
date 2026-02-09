@@ -1,9 +1,13 @@
-export const STRAPI_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337';
+// Server-side uses internal Docker network, client-side uses public URL
+const isServer = typeof window === 'undefined';
+export const STRAPI_URL = isServer
+    ? (process.env.STRAPI_INTERNAL_URL || 'http://backend:1337')
+    : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337');
 
 export async function fetchAPI(path) {
     const url = `${STRAPI_URL}/api${path}`;
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { cache: 'no-store' });
         if (!response.ok) {
             throw new Error(`API Error: ${response.statusText}`);
         }
@@ -46,8 +50,23 @@ export async function getHistory() {
     return data?.data || [];
 }
 
+export async function getAboutData() {
+    const data = await fetchAPI('/about?populate=*');
+    return data?.data || null;
+}
+
+export async function getFooterData() {
+    const data = await fetchAPI('/footer?populate=*');
+    return data?.data || null;
+}
+
 export async function getArticleById(documentId) {
     const data = await fetchAPI(`/articles/${documentId}?populate=*`);
+    return data?.data || null;
+}
+
+export async function getSupportData() {
+    const data = await fetchAPI('/support?populate=*');
     return data?.data || null;
 }
 

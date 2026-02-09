@@ -1,0 +1,25 @@
+{
+    "collectionName": "components_page_transparency_items",
+    "info": {
+        "displayName": "Transparency Item",
+        "icon": "eye"
+    },
+    "options": {},
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        },
+        "icon": {
+            "type": "string",
+            "default": "chart",
+            "enum": [
+                "chart",
+                "file",
+                "handshake"
+            ]
+        }
+    }
+}

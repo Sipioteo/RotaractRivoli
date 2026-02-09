@@ -1,0 +1,19 @@
+{
+    "collectionName": "components_page_steps",
+    "info": {
+        "displayName": "Step",
+        "icon": "list-ol"
+    },
+    "options": {},
+    "attributes": {
+        "stepNumber": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "text"
+        }
+    }
+}

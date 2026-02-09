@@ -15,6 +15,30 @@
     height: 70px;
 }
 
+/* Header on pages with dark hero backgrounds */
+.header.on-dark .logo-rotary,
+.header.on-dark .logo-club,
+.header.on-dark .nav-link {
+    color: var(--white);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.header.on-dark .hamburger,
+.header.on-dark .hamburger::before,
+.header.on-dark .hamburger::after {
+    background-color: var(--white);
+}
+
+.header.on-dark .btn-primary {
+    background: var(--white);
+    color: var(--primary-color);
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+}
+
+.header.on-dark .btn-primary:hover {
+    background: var(--off-white);
+}
+
 .header-container {
     display: flex;
     align-items: center;
@@ -25,7 +49,6 @@
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
     display: flex;
     flex-direction: column;
     line-height: 1;
@@ -36,6 +59,11 @@
     color: var(--secondary-color);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.logo-club {
+    font-size: 1em;
+    color: var(--primary-color);
 }
 
 .desktop-nav {

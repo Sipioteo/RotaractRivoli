@@ -1,0 +1,13 @@
+{
+    "collectionName": "components_page_partners",
+    "info": {
+        "displayName": "Partner",
+        "icon": "handshake"
+    },
+    "options": {},
+    "attributes": {
+        "name": {
+            "type": "string"
+        }
+    }
+}

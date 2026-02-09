@@ -1,0 +1,51 @@
+{
+    "kind": "singleType",
+    "collectionName": "supports",
+    "info": {
+        "singularName": "support",
+        "pluralName": "supports",
+        "displayName": "Support",
+        "description": "Content for the Sostienici page"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "heroTitle": {
+            "type": "string"
+        },
+        "heroDescription": {
+            "type": "text"
+        },
+        "donationTitle": {
+            "type": "string"
+        },
+        "donationText": {
+            "type": "text"
+        },
+        "stripeLink": {
+            "type": "string"
+        },
+        "bankDetails": {
+            "type": "richtext"
+        },
+        "transparencyTitle": {
+            "type": "string"
+        },
+        "transparencyItems": {
+            "type": "component",
+            "repeatable": true,
+            "component": "page.transparency-item"
+        },
+        "partnershipTitle": {
+            "type": "string"
+        },
+        "partnershipText": {
+            "type": "text"
+        },
+        "partnershipEmail": {
+            "type": "email"
+        }
+    }
+}

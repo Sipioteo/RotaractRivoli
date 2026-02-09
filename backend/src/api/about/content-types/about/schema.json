@@ -1,0 +1,53 @@
+{
+    "kind": "singleType",
+    "collectionName": "abouts",
+    "info": {
+        "singularName": "about",
+        "pluralName": "abouts",
+        "displayName": "About",
+        "description": "Content for the 'Chi Siamo' page"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "missionTitle": {
+            "type": "string"
+        },
+        "missionText": {
+            "type": "text"
+        },
+        "introTitle": {
+            "type": "string"
+        },
+        "introText": {
+            "type": "richtext"
+        },
+        "introImage": {
+            "type": "media",
+            "multiple": false,
+            "required": false,
+            "allowedTypes": [
+                "images"
+            ]
+        },
+        "valuesText": {
+            "type": "string"
+        },
+        "steps": {
+            "type": "component",
+            "repeatable": true,
+            "component": "page.step"
+        },
+        "contactTitle": {
+            "type": "string"
+        },
+        "contactText": {
+            "type": "string"
+        },
+        "contactEmail": {
+            "type": "string"
+        }
+    }
+}

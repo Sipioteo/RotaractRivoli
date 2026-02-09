@@ -430,6 +430,41 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAboutAbout extends Struct.SingleTypeSchema {
+  collectionName: 'abouts';
+  info: {
+    description: "Content for the 'Chi Siamo' page";
+    displayName: 'About';
+    pluralName: 'abouts';
+    singularName: 'about';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    contactEmail: Schema.Attribute.String;
+    contactText: Schema.Attribute.String;
+    contactTitle: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    introImage: Schema.Attribute.Media<'images'>;
+    introText: Schema.Attribute.RichText;
+    introTitle: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
+      Schema.Attribute.Private;
+    missionText: Schema.Attribute.Text;
+    missionTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    steps: Schema.Attribute.Component<'page.step', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    valuesText: Schema.Attribute.String;
+  };
+}
+
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
@@ -497,6 +532,40 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFooterFooter extends Struct.SingleTypeSchema {
+  collectionName: 'footers';
+  info: {
+    description: 'Global footer content';
+    displayName: 'Footer';
+    pluralName: 'footers';
+    singularName: 'footer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    brandDesc: Schema.Attribute.Text;
+    brandName: Schema.Attribute.String;
+    copyrightText: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    exploreLinks: Schema.Attribute.Component<'page.link', true>;
+    infoLinks: Schema.Attribute.Component<'page.link', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::footer.footer'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    socialLinks: Schema.Attribute.Component<'page.social-link', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHistoryItemHistoryItem extends Struct.CollectionTypeSchema {
   collectionName: 'history_items';
   info: {
@@ -547,7 +616,11 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     ctaPrimaryLink: Schema.Attribute.String;
     ctaSecondaryLabel: Schema.Attribute.String;
     ctaSecondaryLink: Schema.Attribute.String;
+    finalCtaButtonLabel: Schema.Attribute.String;
+    finalCtaButtonLink: Schema.Attribute.String;
+    finalCtaTitle: Schema.Attribute.String;
     headline: Schema.Attribute.String;
+    heroImage: Schema.Attribute.Media<'images'>;
     impactStats: Schema.Attribute.Component<'page.impact-stat', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -555,6 +628,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'api::homepage.homepage'
     > &
       Schema.Attribute.Private;
+    partners: Schema.Attribute.Component<'page.partner', true>;
     publishedAt: Schema.Attribute.DateTime;
     subheadline: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
@@ -591,6 +665,48 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     result: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSupportSupport extends Struct.SingleTypeSchema {
+  collectionName: 'supports';
+  info: {
+    description: 'Content for the Sostienici page';
+    displayName: 'Support';
+    pluralName: 'supports';
+    singularName: 'support';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bankDetails: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    donationText: Schema.Attribute.Text;
+    donationTitle: Schema.Attribute.String;
+    heroDescription: Schema.Attribute.Text;
+    heroTitle: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::support.support'
+    > &
+      Schema.Attribute.Private;
+    partnershipEmail: Schema.Attribute.Email;
+    partnershipText: Schema.Attribute.Text;
+    partnershipTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    stripeLink: Schema.Attribute.String;
+    transparencyItems: Schema.Attribute.Component<
+      'page.transparency-item',
+      true
+    >;
+    transparencyTitle: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1139,11 +1255,14 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
       'api::event.event': ApiEventEvent;
+      'api::footer.footer': ApiFooterFooter;
       'api::history-item.history-item': ApiHistoryItemHistoryItem;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::project.project': ApiProjectProject;
+      'api::support.support': ApiSupportSupport;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
