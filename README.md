@@ -1,5 +1,6 @@
 # Rotaract Club Rivoli - Web Project
 
+
 This project consists of a React frontend (Vite) and a Strapi backend (Node.js).
 
 ## Environment Variables
