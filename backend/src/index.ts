@@ -13,9 +13,9 @@ export default {
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     try {
       console.log('🚀 Checking for seeding opportunities...');
-
       await seedData(strapi);
       await setPermissions(strapi);
+
 
       console.log('✅ Bootstrap complete.');
     } catch (error) {
