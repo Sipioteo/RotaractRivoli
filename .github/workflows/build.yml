@@ -2,9 +2,8 @@ name: Build and Push Images
 
 on:
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+    tags:
+      - 'v*'
 
 permissions:
   contents: read
@@ -35,6 +34,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}
+          tags: |
+            type=ref,event=tag
+            type=raw,value=latest
 
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v4
@@ -62,6 +64,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}
+          tags: |
+            type=ref,event=tag
+            type=raw,value=latest
 
       - name: Build and push Frontend Docker image
         uses: docker/build-push-action@v4
