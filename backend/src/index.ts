@@ -141,7 +141,7 @@ module.exports = {
           { title: "Raccolta Alimentare", date: "2026-04-25", location: "Supermercato Coop Rivoli", description: "Giornata di raccolta beni.", cta: "Partecipa", link: "#", publishedAt },
           { title: "Cena CEPIM", date: "2026-03-15", location: "Rivoli", description: "Serata di solidarietà.", cta: "Iscriviti", link: "#", featured: true, publishedAt }
         ];
-        for (const event of events) await strapi.entityService.create('api::event.event', { data: event });
+        await Promise.all(events.map(event => strapi.entityService.create('api::event.event', { data: event })));
 
         // Projects
         const projects = [
@@ -149,7 +149,7 @@ module.exports = {
           { title: "Giornata Int. Disabilità", category: "Inclusione", result: "Sensibilizzazione", description: "Impegno per l'inclusione.", publishedAt },
           { title: "Novembre Solidale", category: "Servizio", result: "Supporto Comunità", description: "Raccolta alimentare e campagne.", publishedAt }
         ];
-        for (const p of projects) await strapi.entityService.create('api::project.project', { data: p });
+        await Promise.all(projects.map(p => strapi.entityService.create('api::project.project', { data: p })));
 
         // Team
         const team = [
@@ -158,7 +158,7 @@ module.exports = {
           { name: "Luca Verdi", role: "Segretario", publishedAt },
           { name: "Sofia Neri", role: "Tesoriere", publishedAt }
         ];
-        for (const m of team) await strapi.entityService.create('api::team-member.team-member', { data: m });
+        await Promise.all(team.map(m => strapi.entityService.create('api::team-member.team-member', { data: m })));
 
         // History
         const history = [
@@ -166,7 +166,7 @@ module.exports = {
           { year: "2018", event: "Primo Service Int.", description: "Collaborazione con la Francia.", publishedAt },
           { year: "2022", event: "Premio Distrettuale", description: "Riconoscimento inclusione.", publishedAt }
         ];
-        for (const h of history) await strapi.entityService.create('api::history-item.history-item', { data: h });
+        await Promise.all(history.map(h => strapi.entityService.create('api::history-item.history-item', { data: h })));
       }
 
 
@@ -186,7 +186,7 @@ module.exports = {
         ];
 
         console.log('🔓 Updating public permissions...');
-        for (const action of permissionsToEnable) {
+        await Promise.all(permissionsToEnable.map(async (action) => {
           // Check if permission already exists and is enabled
           const permission = await strapi.query('plugin::users-permissions.permission').findOne({
             where: { role: publicRole.id, action }
@@ -202,7 +202,7 @@ module.exports = {
               data: { enabled: true }
             });
           }
-        }
+        }));
       }
 
       console.log('✅ Bootstrap complete.');
