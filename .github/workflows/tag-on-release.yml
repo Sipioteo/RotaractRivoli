@@ -1,0 +1,79 @@
+name: Tag on Release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  tag-release:
+    if: startsWith(github.event.head_commit.message, '[RELEASE]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git User
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Extract Tag Name
+        id: extract_tag
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          # Extract the tag from the first line of the commit message
+          TAG_NAME=$(echo "$COMMIT_MSG" | head -n 1 | awk '{print $2}')
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create and Push Tag
+        env:
+          TAG_NAME: ${{ steps.extract_tag.outputs.TAG_NAME }}
+        run: |
+          if [[ -z "$TAG_NAME" ]]; then
+            echo "Error: Could not extract tag name from commit message."
+            exit 1
+          fi
+
+          if [[ ! "$TAG_NAME" =~ ^v ]]; then
+            echo "Error: extracted tag '$TAG_NAME' does not start with 'v'."
+            exit 1
+          fi
+
+          echo "Detected tag: $TAG_NAME"
+
+          # Check if tag already exists
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Error: Tag '$TAG_NAME' already exists."
+            exit 1
+          fi
+
+          # Create and push the tag
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
+
+      - name: Trigger Build Workflow
+        uses: actions/github-script@v6
+        env:
+          TAG_NAME: ${{ steps.extract_tag.outputs.TAG_NAME }}
+        with:
+          script: |
+            const tagName = process.env.TAG_NAME;
+            console.log(`Triggering build workflow for tag: ${tagName}`);
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'build.yml',
+              ref: tagName,
+              inputs: {
+                tag_name: tagName
+              }
+            });
